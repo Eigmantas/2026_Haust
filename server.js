@@ -1,36 +1,49 @@
 const express = require('express');
 const path = require('path');
+const fs = require('fs')
 
 const app = express();
 const PORT = 3000;
 
-// 1. Stillingar fyrir Views (EJS)
-// Við segjum Express að leita að views í 'src/views' möppunni
-app.set('views', path.join(__dirname, 'src', 'views'));
 app.set('view engine', 'ejs');
-
-// 2. Statískar skrár (CSS, myndir)
-// Allt sem er í 'public' möppunni verður aðgengilegt á vefnum (t.d. /css/styles.css)
+app.set('views', path.join(__dirname, 'src/views'));
 app.use(express.static(path.join(__dirname, 'public')));
 
-// 3. Slóðir (Routes)
-// Forsíða
+const getGames = () => {
+  const data = fs.readFileSync(path.join(__dirname, 'src/data/games.json'));
+  return JSON.parse(data);
+};
+
+app.get('/', (req, res) => {
+  const games = getGames();
+  res.render('index', { title: 'Games', games});
+});
+
+app.get('/game/:id', (req, res) => {
+  const games = getGames();
+  const game  = games.find(g => g.id === req.params.id);
+
+   if (!game) {
+    return res.status(404).render('404', { title: 'Síða fannst ekki' });
+  }
+
+   res.render('game-details', { title: game.title, game });
+});
+
+app.use(express.static(path.join(__dirname, 'public')));
+
 app.get('/', (req, res) => {
     res.render('index', { title: 'Eigmantas' });
 });
 
-// Um okkur síða
 app.get('/about', (req, res) => {
   res.render('about', { title: 'Eigmantas' });
 });
 
-// 4. Villumeðhöndlun (404)
-// Ef engin ofangreind slóð passfar, grípum við það hér
 app.use((req, res) => {
   res.status(404).send('Síða fannst ekki (404)');
 });
 
-// 5. Ræsa þjóninn
 app.listen(PORT, () => {
   console.log(`Server keyrir á http://localhost:${PORT}`);
 });

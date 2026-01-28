@@ -1,0 +1,23 @@
+[
+  {
+    "id": "Cyberpunk 2077",
+    "title": "Cyberpunk 2077", 
+    "year": "2020",
+    "description": "Cyberpunk is and action and rpg game with opne world",
+    "image": "images/Cyberpunk.jpg"
+  },
+  {
+    "id": "minecraft",
+    "title": "minecraft",
+    "year": "2009",
+    "description": "it is a opne world game that you can do mostly any thing",
+    "image": "images/Minecraft.jpeg"
+  },
+    {
+    "id": "rust",
+    "title": "rust",
+    "year": "2013",
+    "description": "It is a multiplayer game it pits players against ech other",
+    "image": "images/Rust.jpg"
+  }
+]
