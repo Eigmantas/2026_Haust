@@ -1,9 +1,9 @@
-const fs = requesr('fs');
-const path =request('path')
+const fs = require('fs');
+const path =require('path');
 
 const loadDate = () => {
-    const filepath = path.join(__dirname, '..', 'data', 'games.json');
-    const fileDate = fs.readFileSync(filepath);
+    const filePath = path.join(__dirname, '../data/games.json');
+    const fileDate = fs.readFileSync(filePath);
     return JSON.parse(fileDate);
 };
 
@@ -14,7 +14,7 @@ const getGames = () => {
 
 const getGameById = (id) => {
     const games = loadDate();
-    return games.find(game => game.id === id);
+    return games.find((g) => g.id === id);
 };
 
 module.exports = {

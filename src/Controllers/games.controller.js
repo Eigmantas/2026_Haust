@@ -1,4 +1,4 @@
-const gameService = require('../lib/movieService');
+const gameService = require('../lib/gameService');
 
 const index = (req, res) => {
     const games = gameService.getGames();
